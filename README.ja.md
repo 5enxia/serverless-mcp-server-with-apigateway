@@ -17,7 +17,7 @@ API Gatewayを使うことでより柔軟なセキュリティ設定、ルーテ
 
 このシステムのアーキテクチャは以下の通りです：
 
-![MCP Server Architecture](diagram.jpg)
+![MCP Server Architecture](diagram.png)
 
 ```text
 MCP Client → API Gateway → Lambda (+ Lambda Web Adapter) → FastMCP Server

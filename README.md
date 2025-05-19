@@ -17,7 +17,7 @@ Using API Gateway enables more flexible security settings and routing.
 
 The architecture of this system is as follows:
 
-![MCP Server Architecture](diagram.jpg)
+![MCP Server Architecture](diagram.png)
 
 ```text
 MCP Client → API Gateway → Lambda (+ Lambda Web Adapter) → FastMCP Server
