@@ -1,0 +1,40 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform:
+  - AWS::Serverless-2016-10-31
+  - AWS::LanguageExtensions
+
+Resources:
+  Function:
+    Type: AWS::Serverless::Function
+    Properties:
+      Architectures:
+        - arm64
+      Runtime: python3.13
+      Timeout: 30
+      AutoPublishAlias: live
+      Layers:
+        - !Sub arn:aws:lambda:${AWS::Region}:753240598075:layer:LambdaAdapterLayerArm64:18
+      MemorySize: 1024
+      CodeUri: src
+      Handler: run.sh
+      Events:
+        apiReport:
+          Type: Api
+          Properties:
+            Path: /{proxy+}
+            Method: ANY
+      Environment:
+        Variables:
+          AWS_LAMBDA_EXEC_WRAPPER: /opt/bootstrap
+          PORT: 8080
+
+Outputs:
+  Api:
+    Description: "API Gateway endpoint URL for Prod stage for Function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/mcp"
+  Function:
+    Description: "Lambda Function ARN"
+    Value: !GetAtt Function.Arn
+  FunctionIamRole:
+    Description: "Implicit IAM Role created for Function"
+    Value: !GetAtt FunctionRole.Arn
